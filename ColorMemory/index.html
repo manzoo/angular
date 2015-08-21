@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="js/lib/angular.min.js"></script>
+	<script src="js/common/common.js"></script>
+	<script src="app.js"></script>
+	<script src="js/models/CardModel.js"></script>
+	<script src="js/controllers/ColorMemory.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>	
+</head>
+<body ng-app="colorMemory">
+	<article id="game" class="game" ng-controller="ColorMemoryController">
+		<header>
+			<div>Color Memory Game</div>
+		</header>		
+		<section id="board" >
+			<div ng-repeat="card in cards">
+				<div id="tile1" class="tile" ng-click="!gameEnabled || select(card)">
+					<img ng-src="{{card.backgroundImage}}" ng-show="card.isShown && !card.isRemoved">	
+					<img src="images/card_bg.gif" ng-hide="card.isShown || card.isRemoved">	
+				</div>
+			</div>
+		</section>
+		<a href='javascript:void(0)' ng-click="newGame()">New Game</a>
+	</article>
+	
+</body>
+</html>
