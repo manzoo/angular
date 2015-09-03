@@ -1,7 +1,9 @@
 function CardModel(){
-	this.isShown = true;
+	this.isShown = false;
 	this.isRemoved = false;
+	this.hasFocus = false;
 	this.backgroundImage = 'images/colour1.gif';
+	this.foregroundImage = '';
 	this.flip = function(){
 		this.isShown = true;
 	};

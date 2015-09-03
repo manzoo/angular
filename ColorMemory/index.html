@@ -7,23 +7,25 @@
 	<script src="js/common/common.js"></script>
 	<script src="app.js"></script>
 	<script src="js/models/CardModel.js"></script>
-	<script src="js/controllers/ColorMemory.js"></script>
+	<script src="js/controllers/ColorMemory.js"></script>	
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>	
 </head>
-<body ng-app="colorMemory">
-	<article id="game" class="game" ng-controller="ColorMemoryController">
+<body ng-app="colorMemory" ng-controller="ColorMemoryController" ng-keyup="key($event)">
+	<article id="game" class="game" >
 		<header>
 			<div>Color Memory Game</div>
 		</header>		
-		<section id="board" >
-			<div ng-repeat="card in cards">
-				<div id="tile1" class="tile" ng-click="!gameEnabled || select(card)">
-					<img ng-src="{{card.backgroundImage}}" ng-show="card.isShown && !card.isRemoved">	
-					<img src="images/card_bg.gif" ng-hide="card.isShown || card.isRemoved">	
+		<section id="board"  >
+			<div tabindex="1" >
+				<div ng-repeat="card in cards">
+					<div id="tile1" ng-class="card.hasFocus?'focus':'' " class="tile">
+						<img ng-src="{{card.backgroundImage}}" ng-show="card.isShown && !card.isRemoved">	
+						<img src="images/card_bg.gif" ng-hide="card.isShown || card.isRemoved">	
+					</div>
 				</div>
 			</div>
-		</section>
-		<a href='javascript:void(0)' ng-click="newGame()">New Game</a>
+		</section>		
+		<button type="button" class="btn-primary" ng-click="newGame()">New Game</button>
 	</article>
 	
 </body>

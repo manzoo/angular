@@ -51,23 +51,8 @@ header div {
 	width: 50px;
 }
 
-.tileColor1 {
-	 background-color: rgb(176, 235, 23);
-}
-
-.tileColor2 {
-	 background-color: rgb(57, 171, 62);
-}
-
-.tileColor3 {
-	 background-color: rgb(130, 189, 46);
-}
-
-.tileColor4 {
-	 background-color: rgb(200, 217, 126);
-}
-
-
-.tileColor5 {
-	 background-color: #82bd2d;
+.focus
+{
+	border-color:red;
+	border-style: dashed;
 }
