@@ -10,7 +10,8 @@ mainApp.controller("ColorMemoryController", function($scope) {
 	$scope.numberOfSelection = 0;
 	$scope.numberOfCorrectSelection = 0;
 	$scope.availableColors =[];
-	$scope.currentElementIndex = 0;
+	$scope.currentRowIndex = 0;
+	$scope.currentColumnIndex = 0;
 	
 	$scope.init = function(){	
 		$scope.gameEnabled = true;		
@@ -42,7 +43,8 @@ mainApp.controller("ColorMemoryController", function($scope) {
 		
 		// set focus to first card
 		$scope.cards[0].hasFocus = true;
-		$scope.currentElementIndex = 0;
+		$scope.currentRowIndex = 0;
+		$scope.currentColumnIndex = 0;
 		
 	}		
 	
@@ -73,7 +75,7 @@ mainApp.controller("ColorMemoryController", function($scope) {
 				$scope.gameEnabled = true;	
 				$scope.firstCard = null;
 				$scope.secondCard = null;
-				if($scope.numberOfCorrectSelection ==  $scope.numberOfRows * $scope.numberOfColumns)
+				if($scope.numberOfCorrectSelection ==  ($scope.numberOfRows * $scope.numberOfColumns)/2)
 				{
 					alert('Congratulations ! You have completed the game. Click New Game to start fresh');
 				}
@@ -101,55 +103,40 @@ mainApp.controller("ColorMemoryController", function($scope) {
 		
 		if(keyKode != 13){
 			//clear the focus
-			$scope.cards[$scope.currentElementIndex].hasFocus = false;
+			$scope.cards[$scope.getElementIndex()].hasFocus = false;
 		}
 		switch(keyKode){
 			case 13:
-				$scope.select( $scope.cards[$scope.currentElementIndex]);
+				$scope.select( $scope.cards[$scope.getElementIndex()]);
 			break;
 			case 37:
-				if($scope.currentElementIndex % $scope.numberOfColumns == 0){
-					$scope.currentElementIndex = $scope.currentElementIndex - 1 + $scope.numberOfColumns
-				}
-				else{
-					$scope.currentElementIndex = $scope.currentElementIndex-1;
-				}
-				console.log("left arrow");
+					$scope.currentColumnIndex = ($scope.currentColumnIndex-1+$scope.numberOfColumns)% $scope.numberOfColumns;
+					console.log("left arrow");
 			break;
 			case 38:
-				if($scope.currentElementIndex < $scope.numberOfColumns){
-					$scope.currentElementIndex = $scope.currentElementIndex + ($scope.numberOfRows * $scope.numberOfColumns) -$scope.numberOfRows;;
-				}
-				else{
-					$scope.currentElementIndex = $scope.currentElementIndex - $scope.numberOfRows;
-				}
+				$scope.currentRowIndex = ($scope.currentRowIndex-1+$scope.numberOfRows)% $scope.numberOfRows;
 				console.log("up arrow");
 			break;
 			case 39:
-				if(($scope.currentElementIndex+1) % $scope.numberOfColumns == 0){
-					$scope.currentElementIndex = $scope.currentElementIndex + 1 - $scope.numberOfColumns
-				}
-				else{
-					$scope.currentElementIndex = $scope.currentElementIndex+1;
-				}
-				console.log("right arrow");
+					$scope.currentColumnIndex = ($scope.currentColumnIndex+1)% $scope.numberOfColumns;
+					console.log("right arrow");
 			break;
 			case 40:
-				if($scope.currentElementIndex >= ($scope.numberOfRows-1)*($scope.numberOfColumns)){
-					$scope.currentElementIndex = $scope.currentElementIndex -($scope.numberOfRows * $scope.numberOfColumns) +$scope.numberOfRows;
-				}
-				else{
-					$scope.currentElementIndex = $scope.currentElementIndex + $scope.numberOfRows;
-				}
+				$scope.currentRowIndex = ($scope.currentRowIndex+1)% $scope.numberOfRows;
 				console.log("down arrow");
 			break;
 			default: break;
 		}
 		
-		console.log($scope.currentElementIndex);
+		console.log($scope.currentRowIndex);
 		if(keyKode != 13){
 			// set the focus
-			$scope.cards[$scope.currentElementIndex].hasFocus = true;
+			$scope.cards[$scope.getElementIndex()].hasFocus = true;
 		}
+	};
+	
+	$scope.getElementIndex = function(){	
+		var elementIndex = ($scope.currentRowIndex *$scope.numberOfColumns) + $scope.currentColumnIndex ;		
+		return elementIndex;	
 	};
 });	  
