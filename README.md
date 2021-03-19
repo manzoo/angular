@@ -1,2 +1,2 @@
-# angular 2
+# angular 1 & 2
 sdsdsds
